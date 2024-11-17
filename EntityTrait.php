@@ -433,7 +433,7 @@ trait EntityTrait
      * When checking multiple fields all fields must have a value (even `null`)
      * present for the method to return `true`.
      *
-     * @param list<string>|string $field The field or fields to check.
+     * @param array<string>|string $field The field or fields to check.
      * @return bool
      */
     public function has(array|string $field): bool
@@ -509,7 +509,7 @@ trait EntityTrait
      * $entity->unset(['name', 'last_name']);
      * ```
      *
-     * @param list<string>|string $field The field to unset.
+     * @param array<string>|string $field The field to unset.
      * @return $this
      */
     public function unset(array|string $field)
@@ -525,7 +525,7 @@ trait EntityTrait
     /**
      * Sets hidden fields.
      *
-     * @param list<string> $fields An array of fields to hide from array exports.
+     * @param array<string> $fields An array of fields to hide from array exports.
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
@@ -556,7 +556,7 @@ trait EntityTrait
     /**
      * Sets the virtual fields on this entity.
      *
-     * @param list<string> $fields An array of fields to treat as virtual.
+     * @param array<string> $fields An array of fields to treat as virtual.
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
@@ -737,7 +737,7 @@ trait EntityTrait
      * Returns an array with the requested fields
      * stored in this entity, indexed by field name
      *
-     * @param list<string> $fields list of fields to be returned
+     * @param array<string> $fields list of fields to be returned
      * @param bool $onlyDirty Return the requested field only if it is dirty
      * @return array<string, mixed>
      */
@@ -760,7 +760,7 @@ trait EntityTrait
      * Fields that are unchanged from their original value will be included in the
      * return of this method.
      *
-     * @param list<string> $fields List of fields to be returned
+     * @param array<string> $fields List of fields to be returned
      * @return array<string, mixed>
      */
     public function extractOriginal(array $fields): array
@@ -784,7 +784,7 @@ trait EntityTrait
      * This method will only return fields that have been modified since
      * the entity was built. Unchanged fields will be omitted.
      *
-     * @param list<string> $fields List of fields to be returned
+     * @param array<string> $fields List of fields to be returned
      * @return array<string, mixed>
      */
     public function extractOriginalChanged(array $fields): array
@@ -829,7 +829,7 @@ trait EntityTrait
      * Sets the given field or a list of fields to as original.
      * Normally there is no need to call this method manually.
      *
-     * @param list<string>|string $field the name of a field or a list of fields to set as original
+     * @param array<string>|string $field the name of a field or a list of fields to set as original
      * @param bool $merge
      * @return $this
      */
@@ -1275,7 +1275,7 @@ trait EntityTrait
      * $entity->setAccess('*', false); // Mark all fields as protected
      * ```
      *
-     * @param list<string>|string $field Single or list of fields to change its accessibility
+     * @param array<string>|string $field Single or list of fields to change its accessibility
      * @param bool $set True marks the field as accessible, false will
      * mark it as protected.
      * @return $this
