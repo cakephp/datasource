@@ -327,9 +327,7 @@ trait EntityTrait
 
         $method = static::_accessor($field, 'get');
         if ($method) {
-            $result = $this->{$method}($value);
-
-            return $result;
+            return $this->{$method}($value);
         }
 
         if (!$fieldIsPresent && $this->requireFieldPresence) {
