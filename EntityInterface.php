@@ -66,6 +66,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * Returns whether a field is an original one.
      * Original fields are those that an entity was instantiated with.
      *
+     * @param string $name Name
      * @return bool
      */
     public function isOriginalField(string $name): bool;
