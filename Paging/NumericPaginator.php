@@ -47,7 +47,7 @@ class NumericPaginator implements PaginatorInterface
      *   default all table columns can be used for sorting. You can use this option
      *   to restrict sorting only by particular fields. If you want to allow
      *   sorting on either associated columns or calculated fields then you will
-     *   have to explicity specify them (along with other fields). Using an empty
+     *   have to explicitly specify them (along with other fields). Using an empty
      *   array will disable sorting alltogether.
      * - `finder` - The table finder to use. Defaults to `all`.
      * - `scope` - If specified this scope will be used to get the paging options
@@ -216,7 +216,7 @@ class NumericPaginator implements PaginatorInterface
         assert(
             $target instanceof RepositoryInterface,
             'Pagination target must be an instance of `' . QueryInterface::class
-                . '` or `' . RepositoryInterface::class . '`.'
+                . '` or `' . RepositoryInterface::class . '`.',
         );
 
         $data = $this->extractData($target, $params, $settings);
@@ -325,7 +325,7 @@ class NumericPaginator implements PaginatorInterface
             triggerWarning(
                 'Passing query options as paginator settings is no longer supported.'
                 . ' Use a custom finder through the `finder` config or pass a SelectQuery instance to paginate().'
-                . ' Extra keys found are: `' . implode('`, `', array_keys($extraSettings)) . '`.'
+                . ' Extra keys found are: `' . implode('`, `', array_keys($extraSettings)) . '`.',
             );
         }
 
@@ -602,7 +602,7 @@ class NumericPaginator implements PaginatorInterface
             if (is_int($field)) {
                 throw new CakeException(sprintf(
                     'The `order` config must be an associative array. Found invalid value with numeric key: `%s`',
-                    $sort
+                    $sort,
                 ));
             }
 
