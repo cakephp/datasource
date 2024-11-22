@@ -327,7 +327,10 @@ trait EntityTrait
 
         $method = static::_accessor($field, 'get');
         if ($method) {
-            return $this->{$method}($value);
+            // Must be variable before returning: Only variable references should be returned by reference.
+            $result = $this->{$method}($value);
+
+            return $result;
         }
 
         if (!$fieldIsPresent && $this->requireFieldPresence) {
