@@ -202,7 +202,7 @@ class NumericPaginator implements PaginatorInterface
     public function paginate(
         mixed $target,
         array $params = [],
-        array $settings = []
+        array $settings = [],
     ): PaginatedInterface {
         $query = null;
         if ($target instanceof QueryInterface) {
@@ -274,6 +274,12 @@ class NumericPaginator implements PaginatorInterface
             }
 
             $query = $object->find($type, ...$args);
+        } elseif (!empty($options['finder'])) {
+            triggerWarning(sprintf(
+                'Finder option (`%s`) from pagination config is not applied'
+                        . ' when a `SelectQuery` instance is passed to `paginate()`',
+                $options['finder'],
+            ));
         }
 
         $query->applyOptions($queryOptions);
