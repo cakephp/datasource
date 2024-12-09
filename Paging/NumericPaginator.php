@@ -202,7 +202,7 @@ class NumericPaginator implements PaginatorInterface
     public function paginate(
         mixed $target,
         array $params = [],
-        array $settings = []
+        array $settings = [],
     ): PaginatedInterface {
         $query = null;
         if ($target instanceof QueryInterface) {
@@ -265,15 +265,17 @@ class NumericPaginator implements PaginatorInterface
             ['order' => null, 'page' => null, 'limit' => null],
         );
 
-        if ($query === null) {
-            $args = [];
-            $type = !empty($options['finder']) ? $options['finder'] : 'all';
-            if (is_array($type)) {
-                $args = (array)current($type);
-                $type = key($type);
-            }
+        $args = [];
+        $type = $options['finder'] ?? null;
+        if (is_array($type)) {
+            $args = (array)current($type);
+            $type = key($type);
+        }
 
-            $query = $object->find($type, ...$args);
+        if ($query === null) {
+            $query = $object->find($type ?? 'all', ...$args);
+        } elseif ($type !== null) {
+            $query->find($type, ...$args);
         }
 
         $query->applyOptions($queryOptions);
