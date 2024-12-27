@@ -97,7 +97,7 @@ interface RepositoryInterface
      * ```
      *
      * @param mixed $primaryKey primary key value to find
-     * @param array|string $finder The finder to use. Passing an options array is deprecated.
+     * @param string $finder The finder to use.
      * @param \Psr\SimpleCache\CacheInterface|string|null $cache The cache config to use.
      *   Defaults to `null`, i.e. no caching.
      * @param \Closure|string|null $cacheKey The cache key to use. If not provided
@@ -109,7 +109,7 @@ interface RepositoryInterface
      */
     public function get(
         mixed $primaryKey,
-        array|string $finder = 'all',
+        string $finder = 'all',
         CacheInterface|string|null $cache = null,
         Closure|string|null $cacheKey = null,
         mixed ...$args,

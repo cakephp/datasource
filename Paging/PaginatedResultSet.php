@@ -19,7 +19,6 @@ namespace Cake\Datasource\Paging;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
-use function Cake\Core\deprecationWarning;
 
 /**
  * Paginated resultset.
@@ -165,28 +164,5 @@ class PaginatedResultSet implements IteratorAggregate, JsonSerializable, Paginat
     public function getIterator(): Traversable
     {
         return $this->results;
-    }
-
-    /**
-     * Proxies method calls to internal result set instance.
-     *
-     * @param string $name Method name
-     * @param array $arguments Arguments
-     * @return mixed
-     */
-    public function __call(string $name, array $arguments): mixed
-    {
-        deprecationWarning(
-            '5.1.0',
-            sprintf(
-                'Calling `%s` methods, such as `%s()`, on PaginatedResultSet is deprecated. ' .
-                'You must call `items()` first (for example, `items()->%s()`).',
-                $this->results::class,
-                $name,
-                $name,
-            ),
-        );
-
-        return $this->results->$name(...$arguments);
     }
 }
