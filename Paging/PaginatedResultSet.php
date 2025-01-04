@@ -16,22 +16,23 @@ declare(strict_types=1);
  */
 namespace Cake\Datasource\Paging;
 
-use IteratorAggregate;
+use ArrayIterator;
 use JsonSerializable;
 use Traversable;
 
 /**
  * Paginated resultset.
  *
- * @template T of mixed
- * @template-implements \IteratorAggregate<mixed>
+ * @template TKey
+ * @template TValue
+ * @template-implements \Cake\Datasource\Paging\PaginatedInterface<TKey, TValue>
  */
-class PaginatedResultSet implements IteratorAggregate, JsonSerializable, PaginatedInterface
+class PaginatedResultSet implements JsonSerializable, PaginatedInterface
 {
     /**
      * Resultset instance.
      *
-     * @var \Traversable<T>
+     * @var \Traversable<TKey, TValue>
      */
     protected Traversable $results;
 
@@ -45,13 +46,18 @@ class PaginatedResultSet implements IteratorAggregate, JsonSerializable, Paginat
     /**
      * Constructor
      *
-     * @param \Traversable<T> $results Resultset instance.
+     * @param iterable $results Resultset instance.
      * @param array $params Paging params.
      */
-    public function __construct(Traversable $results, array $params)
+    public function __construct(iterable $results, array $params)
     {
-        $this->results = $results;
+        $this->results = is_array($results) ? new ArrayIterator($results) : $results;
+
         $this->params = $params;
+
+        if (!isset($this->params['count']) && is_countable($results)) {
+            $this->params['count'] = count($results);
+        }
     }
 
     /**
@@ -67,7 +73,7 @@ class PaginatedResultSet implements IteratorAggregate, JsonSerializable, Paginat
      *
      * This will exhaust the iterator `items`.
      *
-     * @return array<array-key, T>
+     * @return array<array-key, TValue>
      */
     public function toArray(): array
     {
@@ -77,7 +83,7 @@ class PaginatedResultSet implements IteratorAggregate, JsonSerializable, Paginat
     /**
      * Get paginated items.
      *
-     * @return \Traversable<T> The paginated items result set.
+     * @return \Traversable<TKey, TValue> The paginated items result set.
      */
     public function items(): Traversable
     {
@@ -159,7 +165,9 @@ class PaginatedResultSet implements IteratorAggregate, JsonSerializable, Paginat
     }
 
     /**
-     * @inheritDoc
+     * Get inner iterator
+     *
+     * @return \Traversable<TKey, TValue>
      */
     public function getIterator(): Traversable
     {

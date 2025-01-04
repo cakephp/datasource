@@ -17,14 +17,17 @@ declare(strict_types=1);
 namespace Cake\Datasource\Paging;
 
 use Countable;
+use IteratorAggregate;
 use Traversable;
 
 /**
- * This interface describes the methods for pagination instance.
+ * This interface describes the methods for paginated instance.
  *
- * @template-extends \Traversable<mixed>
+ * @template TKey
+ * @template TValue
+ * @template-extends \IteratorAggregate<TKey, TValue>
  */
-interface PaginatedInterface extends Countable, Traversable
+interface PaginatedInterface extends Countable, IteratorAggregate
 {
     /**
      * Get current page number.
@@ -71,9 +74,9 @@ interface PaginatedInterface extends Countable, Traversable
     /**
      * Get paginated items.
      *
-     * @return iterable
+     * @return \Traversable<TKey, TValue>
      */
-    public function items(): iterable;
+    public function items(): Traversable;
 
     /**
      * Get paging param.
