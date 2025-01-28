@@ -25,13 +25,13 @@
     },
     "require": {
         "php": ">=8.4",
-        "cakephp/core": "^6.0",
+        "cakephp/core": "6.0.*@dev",
         "psr/simple-cache": "^2.0 || ^3.0"
     },
     "require-dev": {
-        "cakephp/cache": "^6.0",
-        "cakephp/collection": "^6.0",
-        "cakephp/utility": "^6.0"
+        "cakephp/cache": "6.0.*@dev",
+        "cakephp/collection": "6.0.*@dev",
+        "cakephp/utility": "6.0.*@dev"
     },
     "autoload": {
         "psr-4": {
@@ -43,6 +43,10 @@
         "cakephp/collection": "If you decide to use ResultSetInterface.",
         "cakephp/cache": "If you decide to use Query caching."
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-5.next": "6.0.x-dev"
+        }
+    }
 }
