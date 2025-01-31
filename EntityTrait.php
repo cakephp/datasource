@@ -1102,6 +1102,10 @@ trait EntityTrait
     {
         // Only one path element, check for nested entity with error.
         if (!str_contains($field, '.')) {
+            if (!$this->has($field)) {
+                return [];
+            }
+
             $entity = $this->get($field);
             if ($entity instanceof EntityInterface || is_iterable($entity)) {
                 return $this->_readError($entity);
@@ -1126,7 +1130,9 @@ trait EntityTrait
             $len = count($path);
             $val = null;
             if ($entity instanceof EntityInterface) {
-                $val = $entity->get($part);
+                if ($entity->has($part)) {
+                    $val = $entity->get($part);
+                }
             } elseif (is_array($entity)) {
                 $val = $entity[$part] ?? false;
             }
