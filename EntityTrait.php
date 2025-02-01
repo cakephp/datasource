@@ -281,8 +281,6 @@ trait EntityTrait
                 continue;
             }
 
-            $this->setDirty($name, true);
-
             if ($options['setter']) {
                 $setter = static::_accessor($name, 'set');
                 if ($setter) {
@@ -299,10 +297,43 @@ trait EntityTrait
                 $this->_original[$name] = $this->_fields[$name];
             }
 
+            // Don't dirty scalar values and objects that didn't
+            // change. Arrays will always be marked as dirty because
+            // the original/updated list could contain references to the
+            // same objects, even though those objects may have changed internally.
+            if ($this->isModified($name, $value)) {
+                $this->setDirty($name, true);
+            }
+
             $this->_fields[$name] = $value;
         }
 
         return $this;
+    }
+
+    /**
+     * Check if the provided value is same as existing value for a field.
+     *
+     * @param string $field The field to check.
+     * @return bool
+     */
+    protected function isModified(string $field, mixed $value): bool
+    {
+        $existing = $this->_fields[$field] ?? null;
+
+        if (($value === null || is_scalar($value)) && $existing === $value) {
+            return false;
+        }
+
+        if (
+            is_object($value)
+            && !($value instanceof EntityInterface)
+            && $existing == $value
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
