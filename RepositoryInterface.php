@@ -31,7 +31,7 @@ interface RepositoryInterface
      * @param string $alias Table alias
      * @return $this
      */
-    public function setAlias(string $alias);
+    public function setAlias(string $alias): static;
 
     /**
      * Returns the repository alias.
@@ -56,7 +56,7 @@ interface RepositoryInterface
      * @param string $registryAlias The key used to access this object.
      * @return $this
      */
-    public function setRegistryAlias(string $registryAlias);
+    public function setRegistryAlias(string $registryAlias): static;
 
     /**
      * Returns the table registry key used to create this table instance.

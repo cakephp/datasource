@@ -136,7 +136,7 @@ class RulesChecker
      * @return $this
      * @throws \Cake\Core\Exception\CakeException If a rule with the same name already exists
      */
-    public function add(callable $rule, array|string|null $name = null, array $options = [])
+    public function add(callable $rule, array|string|null $name = null, array $options = []): static
     {
         if (is_string($name)) {
             $this->checkName($name, $this->_rules);
@@ -155,7 +155,7 @@ class RulesChecker
      * @return $this
      * @since 5.1.0
      */
-    public function remove(string $name)
+    public function remove(string $name): static
     {
         unset($this->_rules[$name]);
 
@@ -181,7 +181,7 @@ class RulesChecker
      * @return $this
      * @throws \Cake\Core\Exception\CakeException If a rule with the same name already exists
      */
-    public function addCreate(callable $rule, array|string|null $name = null, array $options = [])
+    public function addCreate(callable $rule, array|string|null $name = null, array $options = []): static
     {
         if (is_string($name)) {
             $this->checkName($name, $this->_createRules);
@@ -200,7 +200,7 @@ class RulesChecker
      * @return $this
      * @since 5.1.0
      */
-    public function removeCreate(string $name)
+    public function removeCreate(string $name): static
     {
         unset($this->_createRules[$name]);
 
@@ -226,7 +226,7 @@ class RulesChecker
      * @return $this
      * @throws \Cake\Core\Exception\CakeException If a rule with the same name already exists
      */
-    public function addUpdate(callable $rule, array|string|null $name = null, array $options = [])
+    public function addUpdate(callable $rule, array|string|null $name = null, array $options = []): static
     {
         if (is_string($name)) {
             $this->checkName($name, $this->_updateRules);
@@ -245,7 +245,7 @@ class RulesChecker
      * @return $this
      * @since 5.1.0
      */
-    public function removeUpdate(string $name)
+    public function removeUpdate(string $name): static
     {
         unset($this->_updateRules[$name]);
 
@@ -271,7 +271,7 @@ class RulesChecker
      * @return $this
      * @throws \Cake\Core\Exception\CakeException If a rule with the same name already exists
      */
-    public function addDelete(callable $rule, array|string|null $name = null, array $options = [])
+    public function addDelete(callable $rule, array|string|null $name = null, array $options = []): static
     {
         if (is_string($name)) {
             $this->checkName($name, $this->_deleteRules);
@@ -290,7 +290,7 @@ class RulesChecker
      * @return $this
      * @since 5.1.0
      */
-    public function removeDelete(string $name)
+    public function removeDelete(string $name): static
     {
         unset($this->_deleteRules[$name]);
 

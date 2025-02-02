@@ -42,7 +42,7 @@ interface QueryInterface
      * @param bool $overwrite whether to reset fields with passed list or not
      * @return $this
      */
-    public function select(Closure|array|string|float|int $fields, bool $overwrite = false);
+    public function select(Closure|array|string|float|int $fields, bool $overwrite = false): static;
 
     /**
      * Returns a key => value array representing a single aliased field
@@ -121,7 +121,7 @@ interface QueryInterface
      * @param array<string, mixed> $options list of query clauses to apply new parts to.
      * @return $this
      */
-    public function applyOptions(array $options);
+    public function applyOptions(array $options): static;
 
     /**
      * Apply custom finds to against an existing query object.
@@ -178,7 +178,7 @@ interface QueryInterface
      * @param int|null $limit number of records to be returned
      * @return $this
      */
-    public function limit(?int $limit);
+    public function limit(?int $limit): static;
 
     /**
      * Sets the number of records that should be skipped from the original result set
@@ -198,7 +198,7 @@ interface QueryInterface
      * @param int|null $offset number of records to be skipped
      * @return $this
      */
-    public function offset(?int $offset);
+    public function offset(?int $offset): static;
 
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.
@@ -249,7 +249,7 @@ interface QueryInterface
      * @param bool $overwrite whether to reset order with field list or not
      * @return $this
      */
-    public function orderBy(Closure|array|string $fields, bool $overwrite = false);
+    public function orderBy(Closure|array|string $fields, bool $overwrite = false): static;
 
     /**
      * Set the page of results you want.
@@ -266,7 +266,7 @@ interface QueryInterface
      * @return $this
      * @throws \InvalidArgumentException If page number < 1.
      */
-    public function page(int $num, ?int $limit = null);
+    public function page(int $num, ?int $limit = null): static;
 
     /**
      * Returns an array representation of the results after executing the query.
@@ -282,7 +282,7 @@ interface QueryInterface
      * @param \Cake\Datasource\RepositoryInterface $repository The default repository object to use
      * @return $this
      */
-    public function setRepository(RepositoryInterface $repository);
+    public function setRepository(RepositoryInterface $repository): static;
 
     /**
      * Returns the default repository object that will be used by this query,
@@ -404,5 +404,9 @@ interface QueryInterface
      * @param bool $overwrite whether to reset conditions with passed list or not
      * @return $this
      */
-    public function where(Closure|array|string|null $conditions = null, array $types = [], bool $overwrite = false);
+    public function where(
+        Closure|array|string|null $conditions = null,
+        array $types = [],
+        bool $overwrite = false
+    ): static;
 }

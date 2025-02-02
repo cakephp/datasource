@@ -255,7 +255,7 @@ trait EntityTrait
      * @return $this
      * @throws \InvalidArgumentException
      */
-    public function set(array|string $field, mixed $value = null, array $options = [])
+    public function set(array|string $field, mixed $value = null, array $options = []): static
     {
         if (is_string($field) && $field !== '') {
             $guard = false;
@@ -544,7 +544,7 @@ trait EntityTrait
      * @param array<string>|string $field The field to unset.
      * @return $this
      */
-    public function unset(array|string $field)
+    public function unset(array|string $field): static
     {
         $field = (array)$field;
         foreach ($field as $p) {
@@ -561,7 +561,7 @@ trait EntityTrait
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
-    public function setHidden(array $fields, bool $merge = false)
+    public function setHidden(array $fields, bool $merge = false): static
     {
         if ($merge === false) {
             $this->_hidden = $fields;
@@ -592,7 +592,7 @@ trait EntityTrait
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
-    public function setVirtual(array $fields, bool $merge = false)
+    public function setVirtual(array $fields, bool $merge = false): static
     {
         if ($merge === false) {
             $this->_virtual = $fields;
@@ -865,7 +865,7 @@ trait EntityTrait
      * @param bool $merge
      * @return $this
      */
-    protected function setOriginalField(string|array $field, bool $merge = true)
+    protected function setOriginalField(string|array $field, bool $merge = true): static
     {
         if (!$merge) {
             $this->_originalFields = (array)$field;
@@ -892,7 +892,7 @@ trait EntityTrait
      * it was not changed. Defaults to true.
      * @return $this
      */
-    public function setDirty(string $field, bool $isDirty = true)
+    public function setDirty(string $field, bool $isDirty = true): static
     {
         if ($isDirty === false) {
             $this->setOriginalField($field);
@@ -956,7 +956,7 @@ trait EntityTrait
      * @param bool $new Indicate whether this entity has been persisted.
      * @return $this
      */
-    public function setNew(bool $new)
+    public function setNew(bool $new): static
     {
         if ($new) {
             foreach ($this->_fields as $k => $p) {
@@ -1071,7 +1071,7 @@ trait EntityTrait
      * @param bool $overwrite Whether to overwrite pre-existing errors for $fields
      * @return $this
      */
-    public function setErrors(array $errors, bool $overwrite = false)
+    public function setErrors(array $errors, bool $overwrite = false): static
     {
         if ($overwrite) {
             foreach ($errors as $f => $error) {
@@ -1114,7 +1114,7 @@ trait EntityTrait
      * @param bool $overwrite Whether to overwrite pre-existing errors for $field
      * @return $this
      */
-    public function setError(string $field, array|string $errors, bool $overwrite = false)
+    public function setError(string $field, array|string $errors, bool $overwrite = false): static
     {
         if (is_string($errors)) {
             $errors = [$errors];
@@ -1265,7 +1265,7 @@ trait EntityTrait
      * @param bool $overwrite Whether to overwrite pre-existing values for $field.
      * @return $this
      */
-    public function setInvalid(array $fields, bool $overwrite = false)
+    public function setInvalid(array $fields, bool $overwrite = false): static
     {
         foreach ($fields as $field => $value) {
             if ($overwrite) {
@@ -1285,7 +1285,7 @@ trait EntityTrait
      * @param mixed $value The invalid value to be set for $field.
      * @return $this
      */
-    public function setInvalidField(string $field, mixed $value)
+    public function setInvalidField(string $field, mixed $value): static
     {
         $this->_invalid[$field] = $value;
 
@@ -1316,7 +1316,7 @@ trait EntityTrait
      * mark it as protected.
      * @return $this
      */
-    public function setPatchable(array|string $field, bool $set)
+    public function setPatchable(array|string $field, bool $set): static
     {
         if ($field === '*') {
             $this->patchable = array_map(fn ($p) => $set, $this->patchable);
@@ -1378,7 +1378,7 @@ trait EntityTrait
      * @param string $alias the alias of the repository
      * @return $this
      */
-    public function setSource(string $alias)
+    public function setSource(string $alias): static
     {
         $this->_registryAlias = $alias;
 

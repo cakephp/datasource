@@ -37,7 +37,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
-    public function setHidden(array $fields, bool $merge = false);
+    public function setHidden(array $fields, bool $merge = false): static;
 
     /**
      * Gets the hidden fields.
@@ -53,7 +53,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param bool $merge Merge the new fields with the existing. By default false.
      * @return $this
      */
-    public function setVirtual(array $fields, bool $merge = false);
+    public function setVirtual(array $fields, bool $merge = false): static;
 
     /**
      * Gets the virtual fields on this entity.
@@ -87,7 +87,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * it was not changed. Default true.
      * @return $this
      */
-    public function setDirty(string $field, bool $isDirty = true);
+    public function setDirty(string $field, bool $isDirty = true): static;
 
     /**
      * Checks if the entity is dirty or if a single field of it is dirty.
@@ -134,7 +134,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param bool $overwrite Whether to overwrite pre-existing errors for $fields
      * @return $this
      */
-    public function setErrors(array $errors, bool $overwrite = false);
+    public function setErrors(array $errors, bool $overwrite = false): static;
 
     /**
      * Sets errors for a single field
@@ -144,7 +144,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param bool $overwrite Whether to overwrite pre-existing errors for $field
      * @return $this
      */
-    public function setError(string $field, array|string $errors, bool $overwrite = false);
+    public function setError(string $field, array|string $errors, bool $overwrite = false): static;
 
     /**
      * Stores whether a field value can be changed or set in this entity.
@@ -154,7 +154,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * mark it as protected.
      * @return $this
      */
-    public function setPatchable(array|string $field, bool $set);
+    public function setPatchable(array|string $field, bool $set): static;
 
     /**
      * Patchable configuration for this entity.
@@ -177,7 +177,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param string $alias the alias of the repository
      * @return $this
      */
-    public function setSource(string $alias);
+    public function setSource(string $alias): static;
 
     /**
      * Returns the alias of the repository from which this entity came from.
@@ -215,7 +215,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * keys are `setter` and `guard`
      * @return $this
      */
-    public function set(array|string $field, mixed $value = null, array $options = []);
+    public function set(array|string $field, mixed $value = null, array $options = []): static;
 
     /**
      * Returns the value of a field by name
@@ -274,7 +274,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param array<string>|string $field The field to unset.
      * @return $this
      */
-    public function unset(array|string $field);
+    public function unset(array|string $field): static;
 
     /**
      * Get the list of visible fields.
@@ -321,7 +321,7 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @param bool $new Indicate whether this entity has been persisted.
      * @return $this
      */
-    public function setNew(bool $new);
+    public function setNew(bool $new): static;
 
     /**
      * Returns whether this entity has already been persisted.
