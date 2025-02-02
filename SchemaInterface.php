@@ -56,7 +56,7 @@ interface SchemaInterface
      * @param array<string, mixed>|string $attrs The attributes for the column or the type name.
      * @return $this
      */
-    public function addColumn(string $name, array|string $attrs);
+    public function addColumn(string $name, array|string $attrs): static;
 
     /**
      * Get column data in the table.
@@ -82,7 +82,7 @@ interface SchemaInterface
      * @param string $name The name of the column
      * @return $this
      */
-    public function removeColumn(string $name);
+    public function removeColumn(string $name): static;
 
     /**
      * Get the column names in the table.
@@ -106,7 +106,7 @@ interface SchemaInterface
      * @param string $type The type to set the column to.
      * @return $this
      */
-    public function setColumnType(string $name, string $type);
+    public function setColumnType(string $name, string $type): static;
 
     /**
      * Returns the base type name for the provided column.
@@ -152,7 +152,7 @@ interface SchemaInterface
      * @param array<string, mixed> $options The options to set, or null to read options.
      * @return $this
      */
-    public function setOptions(array $options);
+    public function setOptions(array $options): static;
 
     /**
      * Gets the options for a table.
