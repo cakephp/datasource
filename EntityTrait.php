@@ -174,7 +174,7 @@ trait EntityTrait
      */
     public function __isset(string $field): bool
     {
-        return $this->get($field) !== null;
+        return $this->has($field) && $this->get($field) !== null;
     }
 
     /**
@@ -748,7 +748,7 @@ trait EntityTrait
         $result = [];
         foreach ($fields as $field) {
             if (!$onlyDirty || $this->isDirty($field)) {
-                $result[$field] = $this->get($field);
+                $result[$field] = $this->has($field) ? $this->get($field) : null;
             }
         }
 
