@@ -174,7 +174,7 @@ trait EntityTrait
      */
     public function __isset(string $field): bool
     {
-        return $this->get($field) !== null;
+        return $this->has($field) && $this->get($field) !== null;
     }
 
     /**
@@ -257,7 +257,7 @@ trait EntityTrait
      */
     public function set(array|string $field, mixed $value = null, array $options = [])
     {
-        if (is_string($field) && $field !== '') {
+        if (is_string($field)) {
             $guard = false;
             $field = [$field => $value];
         } else {
@@ -265,9 +265,6 @@ trait EntityTrait
             $options = (array)$value;
         }
 
-        if (!is_array($field)) {
-            throw new InvalidArgumentException('Cannot set an empty field');
-        }
         $options += ['setter' => true, 'guard' => $guard, 'asOriginal' => false];
 
         if ($options['asOriginal'] === true) {
@@ -277,6 +274,10 @@ trait EntityTrait
         foreach ($field as $name => $value) {
             /** @psalm-suppress RedundantCastGivenDocblockType */
             $name = (string)$name;
+            if ($name === '') {
+                throw new InvalidArgumentException('Cannot set an empty field');
+            }
+
             if ($options['guard'] === true && !$this->isAccessible($name)) {
                 continue;
             }
@@ -778,7 +779,7 @@ trait EntityTrait
         $result = [];
         foreach ($fields as $field) {
             if (!$onlyDirty || $this->isDirty($field)) {
-                $result[$field] = $this->get($field);
+                $result[$field] = $this->has($field) ? $this->get($field) : null;
             }
         }
 
