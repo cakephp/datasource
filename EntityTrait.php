@@ -198,40 +198,12 @@ trait EntityTrait
      * $entity->set('name', 'Andrew');
      * ```
      *
-     * It is also possible to mass-assign multiple fields to this entity
-     * with one call by passing a hashed array as fields in the form of
-     * field => value pairs
-     *
-     * ### Example:
-     *
-     * ```
-     * $entity->set(['name' => 'andrew', 'id' => 1]);
-     * echo $entity->name // prints andrew
-     * echo $entity->id // prints 1
-     * ```
-     *
      * Some times it is handy to bypass setter functions in this entity when assigning
      * fields. You can achieve this by disabling the `setter` option using the
      * `$options` parameter:
      *
      * ```
      * $entity->set('name', 'Andrew', ['setter' => false]);
-     * $entity->set(['name' => 'Andrew', 'id' => 1], ['setter' => false]);
-     * ```
-     *
-     * Mass assignment should be treated carefully when accepting user input, by default
-     * entities will guard all fields when fields are assigned in bulk. You can disable
-     * the guarding for a single set call with the `guard` option:
-     *
-     * ```
-     * $entity->set(['name' => 'Andrew', 'id' => 1], ['guard' => false]);
-     * ```
-     *
-     * You do not need to use the guard option when assigning fields individually:
-     *
-     * ```
-     * // No need to use the guard option.
-     * $entity->set('name', 'Andrew');
      * ```
      *
      * You can use the `asOriginal` option to set the given field as original, if it wasn't
@@ -247,10 +219,8 @@ trait EntityTrait
      * print_r($entity->getOriginalFields()) // prints ['name', 'id', 'phone_number']
      * ```
      *
-     * @param array<string, mixed>|string $field the name of field to set or a list of
-     * fields with their respective values
-     * @param mixed $value The value to set to the field or an array if the
-     * first argument is also an array, in which case will be treated as $options
+     * @param array|string $field The name of field to set.
+     * @param mixed $value The value to set to the field.
      * @param array<string, mixed> $options Options to be used for setting the field. Allowed option
      * keys are `setter`, `guard` and `asOriginal`
      * @return $this
@@ -259,20 +229,79 @@ trait EntityTrait
     public function set(array|string $field, mixed $value = null, array $options = [])
     {
         if (is_string($field)) {
-            $guard = false;
-            $field = [$field => $value];
-        } else {
-            $guard = true;
-            $options = (array)$value;
+            $options += ['guard' => false];
+
+            return $this->patch([$field => $value], $options);
         }
 
-        $options += ['setter' => true, 'guard' => $guard, 'asOriginal' => false];
+        deprecationWarning(
+            '5.2.0',
+            sprintf(
+                'Passing an array as the first argument to `%s::set()` is deprecated. '
+                . 'Use `%s::patch()` instead.',
+                static::class,
+                static::class
+            )
+        );
+
+        return $this->patch($field, (array)$value);
+    }
+
+    /**
+     * Patch (mass-assign) multiple fields to this entity.
+     *
+     * ### Example:
+     *
+     * ```
+     * $entity->patch(['name' => 'andrew', 'id' => 1]);
+     * echo $entity->name // prints andrew
+     * echo $entity->id // prints 1
+     * ```
+     *
+     * Some times it is handy to bypass setter functions in this entity when assigning
+     * fields. You can achieve this by disabling the `setter` option using the
+     * `$options` parameter:
+     *
+     * ```
+     * $entity->patch(['name' => 'Andrew', 'id' => 1], ['setter' => false]);
+     * ```
+     *
+     * Mass assignment should be treated carefully when accepting user input, by default
+     * entities will guard all fields when fields are assigned in bulk. You can disable
+     * the guarding for a single set call with the `guard` option:
+     *
+     * ```
+     * $entity->patch(['name' => 'Andrew', 'id' => 1], ['guard' => false]);
+     * ```
+     *
+     * You can use the `asOriginal` option to set the given field as original, if it wasn't
+     * present when the entity was instantiated.
+     *
+     * ```
+     * $entity = new Entity(['name' => 'andrew', 'id' => 1]);
+     *
+     * $entity->patch(['phone_number' => '555-0134']);
+     * print_r($entity->getOriginalFields()) // prints ['name', 'id']
+     *
+     * $entity->patch(['phone_number' => '555-0134'], ['asOriginal' => true]);
+     * print_r($entity->getOriginalFields()) // prints ['name', 'id', 'phone_number']
+     * ```
+     *
+     * @param array<string, mixed> $values Map of fields with their respective values.
+     * @param array<string, mixed> $options Options to be used for setting the field. Allowed option
+     * keys are `setter`, `guard` and `asOriginal`
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    public function patch(array $values, array $options = [])
+    {
+        $options += ['setter' => true, 'guard' => true, 'asOriginal' => false];
 
         if ($options['asOriginal'] === true) {
-            $this->setOriginalField(array_keys($field));
+            $this->setOriginalField(array_keys($values));
         }
 
-        foreach ($field as $name => $value) {
+        foreach ($values as $name => $value) {
             /** @psalm-suppress RedundantCastGivenDocblockType */
             $name = (string)$name;
             if ($name === '') {
