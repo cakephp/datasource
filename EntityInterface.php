@@ -329,4 +329,12 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @return bool Whether the entity has been persisted.
      */
     public function isNew(): bool;
+
+    /**
+     * Returns a string representation of this object.
+     *
+     * @return string
+     * @deprecated 5.2.0 Casting an entity to string is deprecated. Use `json_encode()` instead to get a string representation of the entity.
+     */
+    public function __toString(): string;
 }
