@@ -31,7 +31,7 @@
     "require-dev": {
         "cakephp/cache": "5.2.*@dev",
         "cakephp/collection": "5.2.*@dev",
-        "cakephp/utility": "^5.2"
+        "cakephp/utility": "5.2.*@dev"
     },
     "autoload": {
         "psr-4": {
