@@ -240,8 +240,8 @@ trait EntityTrait
                 'Passing an array as the first argument to `%s::set()` is deprecated. '
                 . 'Use `%s::patch()` instead.',
                 static::class,
-                static::class
-            )
+                static::class,
+            ),
         );
 
         return $this->patch($field, (array)$value);
@@ -1350,7 +1350,7 @@ trait EntityTrait
     public function setAccess(array|string $field, bool $set)
     {
         if ($field === '*') {
-            $this->_accessible = array_map(fn ($p) => $set, $this->_accessible);
+            $this->_accessible = array_map(fn($p) => $set, $this->_accessible);
             $this->_accessible['*'] = $set;
 
             return $this;
@@ -1427,7 +1427,7 @@ trait EntityTrait
         deprecationWarning(
             '5.2.0',
             'Casting an entity to string is deprecated. ' .
-            'Use json_encode() instead to get a string representation of the entity.'
+            'Use json_encode() instead to get a string representation of the entity.',
         );
 
         return (string)json_encode($this, JSON_PRETTY_PRINT);
