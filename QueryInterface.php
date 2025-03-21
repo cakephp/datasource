@@ -407,6 +407,6 @@ interface QueryInterface
     public function where(
         Closure|array|string|null $conditions = null,
         array $types = [],
-        bool $overwrite = false
+        bool $overwrite = false,
     ): static;
 }
