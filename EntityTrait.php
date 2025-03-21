@@ -1336,7 +1336,7 @@ trait EntityTrait
     public function setPatchable(array|string $field, bool $set): static
     {
         if ($field === '*') {
-            $this->patchable = array_map(fn ($p) => $set, $this->patchable);
+            $this->patchable = array_map(fn($p) => $set, $this->patchable);
             $this->patchable['*'] = $set;
 
             return $this;
@@ -1413,7 +1413,7 @@ trait EntityTrait
         deprecationWarning(
             '5.2.0',
             'Casting an entity to string is deprecated. ' .
-            'Use json_encode() instead to get a string representation of the entity.'
+            'Use json_encode() instead to get a string representation of the entity.',
         );
 
         return (string)json_encode($this, JSON_PRETTY_PRINT);
