@@ -21,7 +21,7 @@ use JsonSerializable;
 use Traversable;
 
 /**
- * Paginated resultset.
+ * Paginated result set.
  *
  * @template TKey
  * @template TValue
