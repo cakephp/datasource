@@ -302,7 +302,6 @@ trait EntityTrait
         }
 
         foreach ($values as $name => $value) {
-            /** @psalm-suppress RedundantCastGivenDocblockType */
             $name = (string)$name;
             if ($name === '') {
                 throw new InvalidArgumentException('Cannot set an empty field');
