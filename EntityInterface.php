@@ -26,7 +26,6 @@ use Stringable;
  *
  * @property mixed $id Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
- * @method bool hasValue(string $field)
  */
 interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
 {
@@ -203,6 +202,24 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @return array<string, mixed>
      */
     public function extractOriginalChanged(array $fields): array;
+
+    /**
+     * Checks that a field has a value.
+     *
+     * This method will return true for
+     *
+     * - Non-empty strings
+     * - Non-empty arrays
+     * - Any object
+     * - Integer, even `0`
+     * - Float, even 0.0
+     *
+     * and false in all other cases.
+     *
+     * @param string $field The field to check.
+     * @return bool
+     */
+    public function hasValue(string $field): bool;
 
     /**
      * Sets a field to the specified value.

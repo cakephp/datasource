@@ -500,37 +500,6 @@ trait EntityTrait
     }
 
     /**
-     * Checks that a field is empty
-     *
-     * This is not working like the PHP `empty()` function. The method will
-     * return true for:
-     *
-     * - `''` (empty string)
-     * - `null`
-     * - `[]`
-     *
-     * and false in all other cases.
-     *
-     * @param string $field The field to check.
-     * @return bool
-     */
-    public function isEmpty(string $field): bool
-    {
-        $value = $this->get($field);
-        if (
-            $value === null ||
-            (
-                $value === [] ||
-                $value === ''
-            )
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Checks that a field has a value.
      *
      * This method will return true for
@@ -548,7 +517,18 @@ trait EntityTrait
      */
     public function hasValue(string $field): bool
     {
-        return !$this->isEmpty($field);
+        $value = $this->get($field);
+        if (
+            $value === null ||
+            (
+                $value === [] ||
+                $value === ''
+            )
+        ) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
