@@ -339,6 +339,10 @@ trait EntityTrait
      */
     protected function isModified(string $field, mixed $value): bool
     {
+        if (!array_key_exists($field, $this->_fields)) {
+            return true;
+        }
+
         $existing = $this->_fields[$field] ?? null;
 
         if (($value === null || is_scalar($value)) && $existing === $value) {
