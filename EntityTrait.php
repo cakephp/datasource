@@ -22,7 +22,6 @@ use Cake\ORM\Entity;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use InvalidArgumentException;
-use function Cake\Core\deprecationWarning;
 
 /**
  * An entity represents a single result row from a repository. It exposes the
@@ -1387,23 +1386,6 @@ trait EntityTrait
         $this->_registryAlias = $alias;
 
         return $this;
-    }
-
-    /**
-     * Returns a string representation of this object in a human readable format.
-     *
-     * @return string
-     * @deprecated 5.2.0 Casting an entity to string is deprecated. Use json_encode() instead to get a string representation of the entity.
-     */
-    public function __toString(): string
-    {
-        deprecationWarning(
-            '5.2.0',
-            'Casting an entity to string is deprecated. ' .
-            'Use json_encode() instead to get a string representation of the entity.',
-        );
-
-        return (string)json_encode($this, JSON_PRETTY_PRINT);
     }
 
     /**
