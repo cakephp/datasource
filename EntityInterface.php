@@ -18,7 +18,6 @@ namespace Cake\Datasource;
 
 use ArrayAccess;
 use JsonSerializable;
-use Stringable;
 
 /**
  * Describes the methods that any class representing a data storage should
@@ -27,7 +26,7 @@ use Stringable;
  * @property mixed $id Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
+interface EntityInterface extends ArrayAccess, JsonSerializable
 {
     /**
      * Sets hidden fields.
@@ -354,12 +353,4 @@ interface EntityInterface extends ArrayAccess, JsonSerializable, Stringable
      * @return bool Whether the entity has been persisted.
      */
     public function isNew(): bool;
-
-    /**
-     * Returns a string representation of this object.
-     *
-     * @return string
-     * @deprecated 5.2.0 Casting an entity to string is deprecated. Use `json_encode()` instead to get a string representation of the entity.
-     */
-    public function __toString(): string;
 }
