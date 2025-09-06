@@ -24,8 +24,8 @@ use Traversable;
  * This interface describes the methods for paginated instance.
  *
  * @template TKey
- * @template TValue
- * @template-extends \IteratorAggregate<TKey, TValue>
+ * @template-covariant TValue
+ * @template-extends \Traversable<TKey, TValue>
  */
 interface PaginatedInterface extends Countable, IteratorAggregate
 {
@@ -74,7 +74,7 @@ interface PaginatedInterface extends Countable, IteratorAggregate
     /**
      * Get paginated items.
      *
-     * @return \Traversable<TKey, TValue>
+     * @return iterable<TKey, TValue>
      */
     public function items(): Traversable;
 
