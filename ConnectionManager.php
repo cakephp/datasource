@@ -54,7 +54,7 @@ class ConnectionManager
      * @var array<string, string>
      * @phpstan-var array<string, class-string>
      */
-    protected static array $_dsnClassMap = [
+    protected static array $dsnClassMap = [
         'mysql' => Mysql::class,
         'postgres' => Postgres::class,
         'sqlite' => Sqlite::class,
@@ -66,7 +66,7 @@ class ConnectionManager
      *
      * @var \Cake\Datasource\ConnectionRegistry
      */
-    protected static ConnectionRegistry $_registry;
+    protected static ConnectionRegistry $registry;
 
     /**
      * Configure a new connection object.
@@ -204,11 +204,11 @@ class ConnectionManager
             $name = static::$_aliasMap[$name];
         }
 
-        if (!isset(static::$_config[$name])) {
+        if (!isset(static::$config[$name])) {
             throw new MissingDatasourceConfigException(['name' => $name]);
         }
-        static::$_registry ??= new ConnectionRegistry();
+        static::$registry ??= new ConnectionRegistry();
 
-        return static::$_registry->{$name} ?? static::$_registry->load($name, static::$_config[$name]);
+        return static::$registry->{$name} ?? static::$registry->load($name, static::$config[$name]);
     }
 }
