@@ -27,5 +27,5 @@ class RecordNotFoundException extends CakeException implements HttpErrorCodeInte
     /**
      * @inheritDoc
      */
-    protected int $_defaultCode = 404;
+    protected int $defaultCode = 404;
 }

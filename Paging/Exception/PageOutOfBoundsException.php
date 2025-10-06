@@ -25,10 +25,10 @@ class PageOutOfBoundsException extends CakeException implements HttpErrorCodeInt
     /**
      * @inheritDoc
      */
-    protected int $_defaultCode = 404;
+    protected int $defaultCode = 404;
 
     /**
      * @inheritDoc
      */
-    protected string $_messageTemplate = 'Page number `%s` could not be found.';
+    protected string $messageTemplate = 'Page number `%s` could not be found.';
 }

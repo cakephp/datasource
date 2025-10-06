@@ -57,7 +57,7 @@ class NumericPaginator implements PaginatorInterface
      *
      * @var array<string, mixed>
      */
-    protected array $_defaultConfig = [
+    protected array $defaultConfig = [
         'page' => 1,
         'limit' => 20,
         'maxLimit' => 100,
@@ -321,7 +321,7 @@ class NumericPaginator implements PaginatorInterface
         $alias = $object->getAlias();
         $defaults = $this->getDefaults($alias, $settings);
 
-        $validSettings = array_keys($this->_defaultConfig);
+        $validSettings = array_keys($this->defaultConfig);
         $validSettings[] = 'order';
         $extraSettings = array_diff_key($defaults, array_flip($validSettings));
         if ($extraSettings) {

@@ -26,5 +26,5 @@ class MissingPropertyException extends CakeException
     /**
      * @var string
      */
-    protected string $_messageTemplate = 'Property `%s` does not exist for the entity `%s`.';
+    protected string $messageTemplate = 'Property `%s` does not exist for the entity `%s`.';
 }
