@@ -29,7 +29,7 @@ class FactoryLocator
      *
      * @var array<string, \Cake\Datasource\Locator\LocatorInterface>
      */
-    protected static array $_modelFactories = [];
+    protected static array $modelFactories = [];
 
     /**
      * Register a locator to return repositories of a given type.
@@ -40,7 +40,7 @@ class FactoryLocator
      */
     public static function add(string $type, LocatorInterface $factory): void
     {
-        static::$_modelFactories[$type] = $factory;
+        static::$modelFactories[$type] = $factory;
     }
 
     /**
@@ -51,7 +51,7 @@ class FactoryLocator
      */
     public static function drop(string $type): void
     {
-        unset(static::$_modelFactories[$type]);
+        unset(static::$modelFactories[$type]);
     }
 
     /**
@@ -63,8 +63,8 @@ class FactoryLocator
      */
     public static function get(string $type): LocatorInterface
     {
-        if (isset(static::$_modelFactories[$type])) {
-            return static::$_modelFactories[$type];
+        if (isset(static::$modelFactories[$type])) {
+            return static::$modelFactories[$type];
         }
 
         throw new InvalidArgumentException(sprintf(
