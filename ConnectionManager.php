@@ -46,7 +46,7 @@ class ConnectionManager
      *
      * @var array<string, string>
      */
-    protected static array $_aliasMap = [];
+    protected static array $aliasMap = [];
 
     /**
      * An array mapping url schemes to fully qualified driver class names
@@ -157,7 +157,7 @@ class ConnectionManager
      */
     public static function alias(string $source, string $alias): void
     {
-        static::$_aliasMap[$alias] = $source;
+        static::$aliasMap[$alias] = $source;
     }
 
     /**
@@ -171,7 +171,7 @@ class ConnectionManager
      */
     public static function dropAlias(string $alias): void
     {
-        unset(static::$_aliasMap[$alias]);
+        unset(static::$aliasMap[$alias]);
     }
 
     /**
@@ -181,7 +181,7 @@ class ConnectionManager
      */
     public static function aliases(): array
     {
-        return static::$_aliasMap;
+        return static::$aliasMap;
     }
 
     /**
@@ -200,8 +200,8 @@ class ConnectionManager
      */
     public static function get(string $name, bool $useAliases = true): ConnectionInterface
     {
-        if ($useAliases && isset(static::$_aliasMap[$name])) {
-            $name = static::$_aliasMap[$name];
+        if ($useAliases && isset(static::$aliasMap[$name])) {
+            $name = static::$aliasMap[$name];
         }
 
         if (!isset(static::$config[$name])) {

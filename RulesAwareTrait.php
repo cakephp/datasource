@@ -36,7 +36,7 @@ trait RulesAwareTrait
      *
      * @var \Cake\Datasource\RulesChecker|null
      */
-    protected ?RulesChecker $_rulesChecker = null;
+    protected ?RulesChecker $rulesChecker = null;
 
     /**
      * Returns whether the passed entity complies with all the rules stored in
@@ -95,18 +95,18 @@ trait RulesAwareTrait
      */
     public function rulesChecker(): RulesChecker
     {
-        if ($this->_rulesChecker !== null) {
-            return $this->_rulesChecker;
+        if ($this->rulesChecker !== null) {
+            return $this->rulesChecker;
         }
         /** @var class-string<\Cake\Datasource\RulesChecker> $class */
         $class = defined('static::RULES_CLASS') ? static::RULES_CLASS : RulesChecker::class;
         /**
          * @phpstan-ignore-next-line
          */
-        $this->_rulesChecker = $this->buildRules(new $class(['repository' => $this]));
-        $this->dispatchEvent('Model.buildRules', ['rules' => $this->_rulesChecker]);
+        $this->rulesChecker = $this->buildRules(new $class(['repository' => $this]));
+        $this->dispatchEvent('Model.buildRules', ['rules' => $this->rulesChecker]);
 
-        return $this->_rulesChecker;
+        return $this->rulesChecker;
     }
 
     /**

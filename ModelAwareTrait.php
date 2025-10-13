@@ -50,14 +50,14 @@ trait ModelAwareTrait
      *
      * @var array<callable|\Cake\Datasource\Locator\LocatorInterface>
      */
-    protected array $_modelFactories = [];
+    protected array $modelFactories = [];
 
     /**
      * The model type to use.
      *
      * @var string
      */
-    protected string $_modelType = 'Table';
+    protected string $modelType = 'Table';
 
     /**
      * Set the modelClass property based on conventions.
@@ -112,7 +112,7 @@ trait ModelAwareTrait
             $modelClass = $alias;
         }
 
-        $factory = $this->_modelFactories[$modelType] ?? FactoryLocator::get($modelType);
+        $factory = $this->modelFactories[$modelType] ?? FactoryLocator::get($modelType);
         if ($factory instanceof LocatorInterface) {
             $instance = $factory->get($modelClass, $options);
         } else {
@@ -134,7 +134,7 @@ trait ModelAwareTrait
      */
     public function modelFactory(string $type, LocatorInterface|callable $factory): void
     {
-        $this->_modelFactories[$type] = $factory;
+        $this->modelFactories[$type] = $factory;
     }
 
     /**
@@ -144,7 +144,7 @@ trait ModelAwareTrait
      */
     public function getModelType(): string
     {
-        return $this->_modelType;
+        return $this->modelType;
     }
 
     /**
@@ -155,7 +155,7 @@ trait ModelAwareTrait
      */
     public function setModelType(string $modelType): static
     {
-        $this->_modelType = $modelType;
+        $this->modelType = $modelType;
 
         return $this;
     }

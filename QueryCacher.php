@@ -37,14 +37,14 @@ class QueryCacher
      *
      * @var \Closure|string
      */
-    protected Closure|string $_key;
+    protected Closure|string $key;
 
     /**
      * Config for cache engine.
      *
      * @var \Psr\SimpleCache\CacheInterface|string
      */
-    protected CacheInterface|string $_config;
+    protected CacheInterface|string $config;
 
     /**
      * Constructor.
@@ -54,8 +54,8 @@ class QueryCacher
      */
     public function __construct(Closure|string $key, CacheInterface|string $config)
     {
-        $this->_key = $key;
-        $this->_config = $config;
+        $this->key = $key;
+        $this->config = $config;
     }
 
     /**
@@ -100,10 +100,10 @@ class QueryCacher
      */
     protected function resolveKey(object $query): string
     {
-        if (is_string($this->_key)) {
-            return $this->_key;
+        if (is_string($this->key)) {
+            return $this->key;
         }
-        $func = $this->_key;
+        $func = $this->key;
         $key = $func($query);
         if (!is_string($key)) {
             $msg = sprintf('Cache key functions must return a string. Got %s.', var_export($key, true));
@@ -120,10 +120,10 @@ class QueryCacher
      */
     protected function resolveCacher(): CacheInterface
     {
-        if (is_string($this->_config)) {
-            return Cache::pool($this->_config);
+        if (is_string($this->config)) {
+            return Cache::pool($this->config);
         }
 
-        return $this->_config;
+        return $this->config;
     }
 }
