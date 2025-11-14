@@ -1426,7 +1426,7 @@ trait EntityTrait
     }
 
     /**
-     * Returns a string representation of this object in a human readable format.
+     * Returns a string representation of this object in a human-readable format.
      *
      * @return string
      * @deprecated 5.2.0 Casting an entity to string is deprecated. Use json_encode() instead to get a string representation of the entity.
