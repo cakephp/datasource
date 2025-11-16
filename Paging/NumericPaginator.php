@@ -98,6 +98,7 @@ class NumericPaginator implements PaginatorInterface
      */
     protected array $pagingParams = [
         'limit' => null,
+        'maxLimit' => null,
         'count' => null,
         'totalCount' => null,
         'perPage' => null,
@@ -389,6 +390,9 @@ class NumericPaginator implements PaginatorInterface
         $this->pagingParams['limit'] = $data['defaults']['limit'] != $data['options']['limit']
             ? $data['options']['limit']
             : null;
+        if (isset($data['options']['maxLimit'])) {
+            $this->pagingParams['maxLimit'] = $data['options']['maxLimit'];
+        }
 
         // Add sortableFields configuration for view helpers
         if (isset($data['options']['sortableFields'])) {
