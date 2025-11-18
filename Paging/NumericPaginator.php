@@ -98,6 +98,7 @@ class NumericPaginator implements PaginatorInterface
      */
     protected array $pagingParams = [
         'limit' => null,
+        'maxLimit' => null,
         'count' => null,
         'totalCount' => null,
         'perPage' => null,
@@ -379,6 +380,7 @@ class NumericPaginator implements PaginatorInterface
             'requestedPage' => $data['options']['page'],
             'alias' => $data['alias'],
             'scope' => $data['options']['scope'],
+            'maxLimit' => $data['options']['maxLimit'],
         ] + $this->pagingParams;
 
         $this->addPageCountParams($data);
